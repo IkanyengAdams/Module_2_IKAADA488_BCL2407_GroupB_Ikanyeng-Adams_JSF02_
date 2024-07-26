@@ -16,7 +16,6 @@
   });
 
   const viewProduct = (productId) => {
-    // Handle the "view product" button click, e.g., navigate to a product detail page
     console.log(`View product with ID: ${productId}`);
   };
 </script>
