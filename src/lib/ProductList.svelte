@@ -8,6 +8,7 @@
   let categories = ["jewelery", "men's clothing", "women's clothing", "electronics"];
   let selectedCategory = '';
   let searchQuery = '';
+  let sortOption = 'default';
 
   onMount(async () => {
     try {
@@ -26,10 +27,20 @@
   };
 
   const filterProducts = () => {
-    filteredProducts = products.filter(product => 
-      (!selectedCategory || product.category === selectedCategory) &&
-      (!searchQuery || product.title.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
+    filteredProducts = products
+      .filter(product => 
+        (!selectedCategory || product.category === selectedCategory) &&
+        (!searchQuery || product.title.toLowerCase().includes(searchQuery.toLowerCase()))
+      )
+      .sort((a, b) => {
+        if (sortOption === 'low') {
+          return a.price - b.price;
+        } else if (sortOption === 'high') {
+          return b.price - a.price;
+        } else {
+          return 0;
+        }
+      });
   };
 
   const searchProducts = () => {
@@ -84,7 +95,7 @@
 
   .search-button {
     position: absolute;
-    margin-right: 100px;
+     margin-right: 100px;
     top: 0;
     right: 0;
     height: 100%;
@@ -201,7 +212,7 @@
 
       <div class="sort-group">
         <label for="sort" class="sort-label">Sort by</label>
-        <select id="sort" class="sort-select">
+        <select id="sort" bind:value="{sortOption}" on:change="{filterProducts}" class="sort-select">
           <option value="default">Default</option>
           <option value="low">Price: Low to High</option>
           <option value="high">Price: High to Low</option>
