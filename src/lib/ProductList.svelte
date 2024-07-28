@@ -5,7 +5,7 @@
   let products = [];
   let filteredProducts = [];
   let loading = true;
-  let categories = ["Jewellery", "Men's Clothes", "Women's Clothes", "Electronics"];
+  let categories = ["jewelery", "men's clothing", "women's clothing", "electronics"];
   let selectedCategory = '';
   let searchQuery = '';
 
@@ -27,7 +27,7 @@
 
   const filterProducts = () => {
     filteredProducts = products.filter(product => 
-      (!selectedCategory || product.category.includes(selectedCategory)) &&
+      (!selectedCategory || product.category === selectedCategory) &&
       (!searchQuery || product.title.toLowerCase().includes(searchQuery.toLowerCase()))
     );
   };
@@ -84,7 +84,7 @@
 
   .search-button {
     position: absolute;
-    margin-right: 30px;
+    margin-right: 100px;
     top: 0;
     right: 0;
     height: 100%;
@@ -160,6 +160,18 @@
 
   .view-button:hover {
     background-color: #2563eb;
+  }
+
+  @media (max-width: 768px) {
+    .product-card {
+      width: calc(50% - 2rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-card {
+      width: calc(100% - 2rem);
+    }
   }
 </style>
 
