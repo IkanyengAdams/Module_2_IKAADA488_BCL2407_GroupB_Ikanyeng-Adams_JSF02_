@@ -1,16 +1,23 @@
 <script>
+  import Router from "svelte-spa-router";
   import Navbar from "./lib/Navbar.svelte";
- import ProductList from "./lib/ProductList.svelte";
- import SearchForm from "./lib/searchForm.svelte";
+  import ProductList from "./lib/ProductList.svelte";
+  
+
+
+  let routes = {
+    "/": ProductList,
+    
+  };
 </script>
 
 <Navbar />
-<SearchForm />
-<ProductList />
-<main>
 
+
+<main>
+  <Router {routes} />
 </main>
 
 <style>
-   
+
 </style>
