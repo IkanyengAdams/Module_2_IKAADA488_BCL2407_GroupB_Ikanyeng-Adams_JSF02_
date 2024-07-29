@@ -2,15 +2,49 @@
   import { onMount } from 'svelte';
   import { push } from 'svelte-spa-router';
 
+  /**
+   * @type {Array<Object>} products - List of all products fetched from the API
+   */
   let products = [];
+
+  /**
+   * @type {Array<Object>} filteredProducts - List of products filtered based on selected category, search query, and sort option
+   */
   let filteredProducts = [];
+
+  /**
+   * @type {boolean} loading - Indicates whether the products are still being loaded
+   */
   let loading = true;
+
+  /**
+   * @type {Array<string>} categories - List of product categories
+   */
   let categories = ["jewelery", "men's clothing", "women's clothing", "electronics"];
+
+  /**
+   * @type {string} selectedCategory - Currently selected category for filtering products
+   */
   let selectedCategory = '';
+
+  /**
+   * @type {string} searchQuery - Current search query for filtering products by title
+   */
   let searchQuery = '';
+
+  /**
+   * @type {string} sortOption - Current sort option for sorting products by price
+   */
   let sortOption = 'default';
+
+  /**
+   * @type {boolean} noItemsFound - Indicates whether no products match the current filters
+   */
   let noItemsFound = false;
 
+  /**
+   * Fetches products from the API and initializes the product list
+   */
   onMount(async () => {
     try {
       const productsResponse = await fetch('https://fakestoreapi.com/products');
@@ -23,10 +57,17 @@
     }
   });
 
+  /**
+   * Navigates to the product detail page
+   * @param {number} productId - ID of the product to view
+   */
   const viewProduct = (productId) => {
     push(`/product/${productId}`);
   };
 
+  /**
+   * Filters and sorts the products based on selected category, search query, and sort option
+   */
   const filterProducts = () => {
     filteredProducts = products
       .filter(product => 
@@ -46,10 +87,14 @@
     noItemsFound = filteredProducts.length === 0;
   };
 
+  /**
+   * Updates the product list based on the search query
+   */
   const searchProducts = () => {
     filterProducts();
   };
 
+  // Automatically filter products whenever the selected category, search query, or sort option changes
   $: filterProducts();
 </script>
 
@@ -201,10 +246,12 @@
 </style>
 
 <main>
+  <!-- Display loading message while products are being fetched -->
   {#if loading}
     <p>Loading...</p>
   {:else}
     <div class="container">
+      <!-- Dropdown for selecting product category -->
       <div class="form-group">
         <select bind:value="{selectedCategory}" on:change="{filterProducts}" class="category-select">
           <option value="">All Categories</option>
@@ -213,15 +260,16 @@
           {/each}
         </select>
 
+        <!-- Search input field for filtering products by title -->
         <div class="relative w-full">
           <input type="search" class="search-input" placeholder="Search products..." bind:value="{searchQuery}" on:input="{searchProducts}" />
           <button type="submit" class="search-button">
-           
             <span class="sr-only">Search</span>
           </button>
         </div>
       </div>
 
+      <!-- Dropdown for sorting products by price -->
       <div class="sort-group">
         <label for="sort" class="sort-label">Sort by</label>
         <select id="sort" bind:value="{sortOption}" on:change="{filterProducts}" class="sort-select">
@@ -232,6 +280,7 @@
       </div>
     </div>
 
+    <!-- Display product cards or a message if no items are found -->
     <div class="products-container">
       {#if filteredProducts.length === 0}
         <p class="no-items-message">No items found</p>
