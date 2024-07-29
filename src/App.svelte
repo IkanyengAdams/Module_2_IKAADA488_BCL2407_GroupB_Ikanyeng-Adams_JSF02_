@@ -1,8 +1,8 @@
 <script>
   import Router from "svelte-spa-router";
-  import Navbar from "./lib/Navbar.svelte";
-  import ProductList from "./lib/ProductList.svelte";
-  import ProductDetails from "./lib/ProductDetails.svelte";
+  import Navbar from "./routes/Navbar.svelte";
+  import ProductList from "./routes/ProductList.svelte";
+  import ProductDetails from "./routes/ProductDetails.svelte";
 
 
   let routes = {
