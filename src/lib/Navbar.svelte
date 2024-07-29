@@ -80,7 +80,7 @@
 <header>
   <nav class="navbar">
     <div>
-      <img src="/online-shop.png" alt="SwiftCart Logo" style="height: 32px;">
+      <img src="public/vite.svg" alt="SwiftCart Logo" style="height: 32px;">
       <span>SwiftCart</span>
     </div>
     <div class="nav-items">
