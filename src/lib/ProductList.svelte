@@ -134,7 +134,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     margin: 1rem;
     padding: 1rem;
-    width: calc(25% - 2rem);
+    width: 288px;
     box-sizing: border-box;
     text-align: center;
     transition: transform 0.2s ease-in-out;
