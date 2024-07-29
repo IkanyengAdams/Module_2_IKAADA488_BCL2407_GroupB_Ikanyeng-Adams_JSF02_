@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { wrap } from 'svelte-spa-router/wrap';
+  import { push } from 'svelte-spa-router';
 
   export let params;
 
@@ -17,6 +17,10 @@
       loading = false;
     }
   });
+
+  const goBack = () => {
+    push('/');
+  };
 </script>
 
 <style>
@@ -63,6 +67,21 @@
     margin-left: 0.5rem;
     font-size: 1rem;
   }
+
+  .back-button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .back-button:hover {
+    background-color: #2563eb;
+  }
 </style>
 
 {#if loading}
@@ -81,5 +100,6 @@
       {/each}
       <span>({product.rating.count} reviews)</span>
     </div>
+    <button class="back-button" on:click={goBack}>Back to Products</button>
   </div>
 {/if}

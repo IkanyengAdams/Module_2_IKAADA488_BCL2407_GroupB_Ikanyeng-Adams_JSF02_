@@ -9,6 +9,7 @@
   let selectedCategory = '';
   let searchQuery = '';
   let sortOption = 'default';
+  let noItemsFound = false;
 
   onMount(async () => {
     try {
@@ -41,6 +42,8 @@
           return 0;
         }
       });
+
+    noItemsFound = filteredProducts.length === 0;
   };
 
   const searchProducts = () => {
@@ -95,7 +98,7 @@
 
   .search-button {
     position: absolute;
-     margin-right: 100px;
+    margin-right: 100px;
     top: 0;
     right: 0;
     height: 100%;
@@ -103,6 +106,10 @@
     color: white;
     border-left: 0;
     border-radius: 0 0.375rem 0.375rem 0;
+  }
+
+  #search-svg {
+    size: 1px;
   }
 
   .sort-group {
@@ -173,6 +180,13 @@
     background-color: #2563eb;
   }
 
+  .no-items-message {
+    color: blue;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.25rem;
+  }
+
   @media (max-width: 768px) {
     .product-card {
       width: calc(50% - 2rem);
@@ -202,9 +216,7 @@
         <div class="relative w-full">
           <input type="search" class="search-input" placeholder="Search products..." bind:value="{searchQuery}" on:input="{searchProducts}" />
           <button type="submit" class="search-button">
-            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-            </svg>
+           
             <span class="sr-only">Search</span>
           </button>
         </div>
@@ -221,22 +233,26 @@
     </div>
 
     <div class="products-container">
-      {#each filteredProducts as product}
-        <div class="product-card">
-          <img src={product.image} alt={product.title} />
-          <h2>{product.title}</h2>
-          <p>{'$' + product.price}</p>
-          <p>{product.category}</p>
-          <div class="rating">
-            {#each Array(5) as _, i}
-              <svg class={i < Math.round(product.rating.rate) ? 'filled' : 'empty'} viewBox="0 0 24 24">
-                <path d="M12 .587l3.668 7.571 8.332 1.151-6.063 5.852 1.428 8.287L12 18.897l-7.365 3.851 1.428-8.287-6.063-5.852 8.332-1.151z"/>
-              </svg>
-            {/each}
+      {#if filteredProducts.length === 0}
+        <p class="no-items-message">No items found</p>
+      {:else}
+        {#each filteredProducts as product}
+          <div class="product-card">
+            <img src={product.image} alt={product.title} />
+            <h2>{product.title}</h2>
+            <p>{'$' + product.price}</p>
+            <p>{product.category}</p>
+            <div class="rating">
+              {#each Array(5) as _, i}
+                <svg class={i < Math.round(product.rating.rate) ? 'filled' : 'empty'} viewBox="0 0 24 24">
+                  <path d="M12 .587l3.668 7.571 8.332 1.151-6.063 5.852 1.428 8.287L12 18.897l-7.365 3.851 1.428-8.287-6.063-5.852 8.332-1.151z"/>
+                </svg>
+              {/each}
+            </div>
+            <button class="view-button" on:click={() => viewProduct(product.id)}>View Product</button>
           </div>
-          <button class="view-button" on:click={() => viewProduct(product.id)}>View Product</button>
-        </div>
-      {/each}
+        {/each}
+      {/if}
     </div>
   {/if}
 </main>
