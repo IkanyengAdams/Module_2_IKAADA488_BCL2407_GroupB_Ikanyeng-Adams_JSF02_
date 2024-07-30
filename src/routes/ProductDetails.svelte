@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { push } from 'svelte-spa-router';
+  import { push } from 'svelte-spa-router'; //programmatically navigate to different routes within my Svelte application
 
   /**
    * @typedef {Object} Params

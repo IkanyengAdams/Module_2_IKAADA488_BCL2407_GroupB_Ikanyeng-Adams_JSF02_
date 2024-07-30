@@ -1,4 +1,5 @@
 <script>
+  // Imported necessary components and modules
   import Router from "svelte-spa-router";
   import Navbar from "./routes/Navbar.svelte";
   import ProductList from "./routes/ProductList.svelte";
@@ -7,8 +8,13 @@
   import Wishlist from "./routes/Wishlist.svelte";
   import Login from "./routes/Login.svelte";
 
-
-  let routes = {
+  /**
+   * Routes configuration for the application.
+   * Maps URL paths to their respective components.
+   * 
+   * //@type {Object.<string, SvelteComponent>}
+   */
+   let routes = {
     "/": ProductList,
     "/product/:id": ProductDetails,
     '/wishlist': Wishlist,

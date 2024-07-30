@@ -1,23 +1,46 @@
 <script>
   import { push } from 'svelte-spa-router';
 
+  /**
+   * @type {boolean} openSidebar - Indicates whether the sidebar is open or closed
+   */
   let openSidebar = false;
+
+   /**
+   * Toggles the sidebar open or closed
+   */
 
   function toggleSidebar() {
     openSidebar = !openSidebar;
   }
 
+  /**
+   * Navigates to the product list page
+   */
+
   function goToProductList() {
     push('/');
   }
+
+   /**
+   * Navigates to the wishlist page
+   */
 
   function goToWishlist() {
     push('/wishlist');
   }
 
+  /**
+   * Navigates to the cart page
+   */
+
   function goToCart() {
     push('/cart');
   }
+
+   /**
+   * Navigates to the login page
+   */
 
   function goToLogin() {
     push('/login');
