@@ -2,10 +2,33 @@
   import { onMount } from 'svelte';
   import { push } from 'svelte-spa-router';
 
+  /**
+   * @typedef {Object} Params
+   * @property {string} id - The ID of the product
+   */
+
+  /**
+   * Parameters passed to the component, including the product ID
+   * @type {Params}
+   */
+
   export let params;
 
+  /**
+   * @type {Object} product - The product details fetched from the API
+   */
+
   let product = {};
+
+   /**
+   * @type {boolean} loading - Indicates whether the product details are still being loaded
+   */
+
   let loading = true;
+
+  /**
+   * Fetches the product details from the API using the provided product ID
+   */
 
   onMount(async () => {
     try {
@@ -17,6 +40,10 @@
       loading = false;
     }
   });
+
+  /**
+   * Navigates back to the products list page
+   */
 
   const goBack = () => {
     push('/');
@@ -83,11 +110,12 @@
     background-color: #2563eb;
   }
 </style>
-
+<!-- initial loading state -->
 {#if loading}
   <p>Loading...</p>
 {:else}
   <div class="product-details">
+    <!-- Displays product image -->
     <img src={product.image} alt={product.title} />
     <h1>{product.title}</h1>
     <p>{product.description}</p>
@@ -100,6 +128,7 @@
       {/each}
       <span>({product.rating.count} reviews)</span>
     </div>
+    <!-- Button to navigate back to the products list -->
     <button class="back-button" on:click={goBack}>Back to Products</button>
   </div>
 {/if}
