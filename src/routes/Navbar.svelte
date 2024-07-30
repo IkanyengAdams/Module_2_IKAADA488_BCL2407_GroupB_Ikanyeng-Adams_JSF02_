@@ -10,6 +10,18 @@
   function goToProductList() {
     push('/');
   }
+
+  function goToWishlist() {
+    push('/wishlist');
+  }
+
+  function goToCart() {
+    push('/cart');
+  }
+
+  function goToLogin() {
+    push('/login');
+  }
 </script>
 
 <style>
@@ -91,7 +103,6 @@
     cursor: pointer;
   }
 
-
   .menu-icon {
     display: none;
   }
@@ -127,9 +138,9 @@
         <span class="heading" on:click={goToProductList}>SwiftCart</span>
       </div>
       <div class="navbar-items">
-        <span class="navbar-item">Wishlist</span>
-        <span class="navbar-item">Cart</span>
-        <a class="navbar-item" href="/login.html">Login</a>
+        <span class="navbar-item" on:click={goToWishlist}>Wishlist</span>
+        <span class="navbar-item" on:click={goToCart}>Cart</span>
+        <span class="navbar-item" on:click={goToLogin}>Login</span>
       </div>
       <button class="btn-toggle menu-icon" on:click={toggleSidebar}>
         &#9776;
@@ -138,9 +149,9 @@
     <div class="sidebar {openSidebar ? 'open' : ''}">
       <div class="sidebar-items"><br>
         <br>
-        <span class="sidebar-item" on:click={toggleSidebar}>Wishlist</span>
-        <span class="sidebar-item" on:click={toggleSidebar}>Cart</span>
-        <a class="sidebar-item" href="/login.html" on:click={toggleSidebar}>Login</a>
+        <span class="sidebar-item" on:click={() => { toggleSidebar(); goToWishlist(); }}>Wishlist</span>
+        <span class="sidebar-item" on:click={() => { toggleSidebar(); goToCart(); }}>Cart</span>
+        <span class="sidebar-item" on:click={() => { toggleSidebar(); goToLogin(); }}>Login</span>
       </div>
     </div>
   </header>

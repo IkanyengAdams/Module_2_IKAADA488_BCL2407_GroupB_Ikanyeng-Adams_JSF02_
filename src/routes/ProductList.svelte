@@ -236,11 +236,19 @@
     .product-card {
       width: calc(50% - 2rem);
     }
+
+    .search-button {
+      margin-left: 20px;
+    }
   }
 
   @media (max-width: 480px) {
     .product-card {
       width: calc(100% - 2rem);
+    }
+
+    .search-button {
+      margin-left: 20px;
     }
   }
 </style>
